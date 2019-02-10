@@ -4,11 +4,15 @@ import sys
 
 #replace csv_file with your own file
 csv_file = 'city_list.csv'
-df = pd.read_csv(csv_file)
+df = pd.read_csv('city_list.csv')
 geolocator = Nominatim()
 
 df['Address'] = df['CITY']+', '+df['PROVINCE'] 
+
 df['Coordinates'] = df['Address'].apply(geolocator.geocode)
+
+
+
 
 df['Latitude'] = df['Coordinates'].apply(lambda x: x.latitude if x != None else None)
 df['Longitude'] = df['Coordinates'].apply(lambda x: x.longitude if x != None else None)
